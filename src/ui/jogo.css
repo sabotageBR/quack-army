@@ -1,0 +1,110 @@
+/* Quack Army: interface por cima da cena 3D (paleta da biblia de arte: amarelo de pato, aqua de banheira,
+   espuma branca e contorno azul-marinho). O kit.css vem antes. */
+:root {
+  --kit-forte: #ff8a1f;
+  --kit-painel: #1d3b5ccc;
+  --aqua: #3ec6e0;
+  --amarelo: #ffd23f;
+  --tinta: #1d1d2b;
+}
+html, body { background: #bfe9f5; }
+[hidden] { display: none !important; }
+#carregando { background: linear-gradient(#d6f3fb, #8fe3f0); color: var(--tinta); }
+#carregando .caixa { display: grid; justify-items: center; gap: 6px; }
+#carregando .logo { font-size: clamp(34px, 9vmin, 64px); color: #fff; text-shadow: 0 4px 0 var(--tinta), 0 0 2px var(--tinta); letter-spacing: 1px;
+  -webkit-text-stroke: 2px var(--tinta); }
+#carregando .logo-pato { width: clamp(80px, 22vmin, 150px); animation: pato-pula 0.9s ease-in-out infinite; }
+#carregando .barra { background: #ffffff88; border: 3px solid var(--tinta); height: 18px; border-radius: 10px; }
+#carregando .barra i { background: var(--amarelo); }
+@keyframes pato-pula { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-10px) rotate(4deg); } }
+
+#hud { position: absolute; left: 0; right: 0; top: 0; display: flex; align-items: center; gap: 8px; padding: 10px 12px; pointer-events: none; }
+#hud > * { pointer-events: auto; }
+#hud .chip { background: #1d1d2bb3; color: #fff; border-radius: 999px; padding: 6px 14px; font-size: 18px; display: inline-flex; align-items: center; gap: 6px;
+  white-space: nowrap; box-shadow: 0 3px 0 #0003; }
+#hud .chip img { width: 24px; height: 24px; object-fit: contain; }
+#hud .moedas { margin-left: auto; }
+#hud .moedas.ganhou { animation: chip-pulo .5s ease-out; }
+@keyframes chip-pulo { 30% { transform: scale(1.25); } }
+.hud-barra { position: relative; flex: 1 1 auto; max-width: 340px; height: 14px; border-radius: 8px; background: #ffffffaa; border: 3px solid var(--tinta); margin: 0 6px; }
+.hud-barra i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--amarelo); border-radius: 5px; }
+.hud-barra img { position: absolute; right: -14px; top: 50%; width: 30px; height: 30px; transform: translateY(-50%); object-fit: contain; }
+#btPausa { flex: 0 0 auto; width: 46px; height: 46px; font-size: 18px; background: #1d1d2bb3; }
+body.limpo #hud, body.limpo .dica, body.limpo .novidade, body.limpo .largada, body.limpo .kit-festa, body.limpo #lendaNova { display: none !important; }
+
+.dica { position: absolute; left: 50%; top: calc(70px + env(safe-area-inset-top)); transform: translateX(-50%); background: #fffffff0; color: var(--tinta); border-radius: 18px; padding: 10px 18px;
+  font-size: clamp(17px, 3.6vmin, 24px); text-align: center; box-shadow: 0 4px 0 #0003; max-width: 88vw; pointer-events: none; }
+.dica[hidden] { display: none; }
+
+.novidade { position: absolute; left: 50%; top: calc(124px + env(safe-area-inset-top)); transform: translateX(-50%); display: flex; align-items: center; gap: 10px; background: #fff; color: var(--tinta);
+  border: 4px solid var(--tinta); border-radius: 20px; padding: 8px 16px 8px 10px; box-shadow: 0 5px 0 #0003; max-width: 92vw; pointer-events: none;
+  animation: entra .4s cubic-bezier(.2, 1.4, .4, 1); }
+.novidade[hidden] { display: none; }
+.novidade img { width: 56px; height: 56px; object-fit: contain; }
+.novidade b { display: block; color: #ff8a1f; font-size: 16px; }
+.novidade span { display: block; font-size: clamp(15px, 3.2vmin, 20px); }
+@keyframes entra { from { transform: translateX(-50%) scale(.5); opacity: 0; } }
+
+.largada { position: absolute; left: 0; right: 0; bottom: 0; display: grid; justify-items: center; gap: 10px; padding: 0 12px calc(14px + env(safe-area-inset-bottom)); pointer-events: none; }
+.largada[hidden] { display: none; }
+.largada > * { pointer-events: auto; }
+.largar-texto { font-size: clamp(20px, 4.4vmin, 30px); color: #fff; text-shadow: 0 3px 0 var(--tinta), 0 0 3px var(--tinta); animation: pisca 1.2s ease-in-out infinite; pointer-events: none !important; }
+@keyframes pisca { 50% { opacity: .55; } }
+.cartoes { display: grid; grid-template-columns: repeat(3, minmax(0, 120px)); gap: 10px; }
+.cartao { font: inherit; color: var(--tinta); background: #fff; border: 4px solid var(--tinta); border-radius: 18px; padding: 6px 6px 8px; display: grid; justify-items: center;
+  gap: 1px; cursor: pointer; box-shadow: 0 5px 0 #0004; position: relative; }
+.cartao:active { transform: translateY(3px); box-shadow: 0 2px 0 #0004; }
+.cartao img { width: 46px; height: 46px; object-fit: contain; }
+.cartao b { font-size: 17px; }
+.cartao small { font-size: 12px; opacity: .75; line-height: 1.1; }
+.cartao .nv { position: absolute; top: -10px; right: -8px; background: var(--aqua); color: #fff; font-size: 12px; border-radius: 10px; padding: 2px 7px; border: 2px solid var(--tinta); }
+.cartao .preco { margin-top: 3px; display: inline-flex; align-items: center; gap: 3px; background: var(--amarelo); border-radius: 10px; padding: 2px 8px; font-size: 16px; }
+.cartao .preco img { width: 18px; height: 18px; }
+.cartao .preco i { font-style: normal; }
+.cartao.caro img:first-child { filter: saturate(.5); }
+.cartao.caro .preco { background: #e3e8ec; color: #6b7280; }
+.cartao.pode { animation: chama 1.4s ease-in-out infinite; }
+@keyframes chama { 50% { transform: translateY(-4px); } }
+.linha { display: flex; gap: 10px; }
+.botao.pequeno { min-width: 0; font-size: 17px; padding: 8px 14px; display: inline-flex; align-items: center; gap: 8px; background: #1d3b5ce6; }
+.botao.pequeno img { width: 30px; height: 30px; object-fit: contain; }
+.botao.pequeno small { font-size: 13px; opacity: .8; }
+.botao.presente { background: var(--aqua); animation: chama 1.2s ease-in-out infinite; }
+
+.painel { border: 4px solid #ffffff55; }
+.painel-img { width: 96px; height: 96px; object-fit: contain; justify-self: center; margin-top: -60px; filter: drop-shadow(0 4px 4px #0005); }
+.par { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.par .botao { min-width: 0; width: 100%; }
+@media (min-width: 520px) { .par:has(> .botao:not([hidden]) + .botao:not([hidden])) { grid-template-columns: 1fr 1fr; } }
+.painel .valor { display: inline-flex; justify-content: center; align-items: center; gap: 8px; font-size: 34px; margin: 0; }
+.painel .valor img { width: 38px; height: 38px; }
+.painel.largo { width: min(94vw, 560px); max-height: 92vh; }
+.grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; overflow-y: auto; max-height: 56vh; padding: 4px; touch-action: pan-y; }
+.lenda { font: inherit; color: var(--tinta); background: #fff; border: 3px solid var(--tinta); border-radius: 14px; padding: 6px 4px; display: grid; justify-items: center; gap: 2px; cursor: pointer; }
+.lenda img { width: 64px; height: 64px; object-fit: contain; }
+.lenda b { font-size: 14px; line-height: 1.1; }
+.lenda small { font-size: 11px; opacity: .75; line-height: 1.1; }
+.lenda.trancada { background: #c9d6df; cursor: default; }
+.lenda.trancada img { filter: brightness(0) opacity(.35); }
+.lenda.ativa { background: var(--amarelo); box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--aqua); }
+
+.lenda-nova { position: fixed; left: 50%; top: 58%; transform: translateX(-50%); z-index: 26; display: grid; justify-items: center; background: #fff; color: var(--tinta);
+  border: 4px solid var(--tinta); border-radius: 20px; padding: 10px 18px; pointer-events: none; animation: entra .45s cubic-bezier(.2, 1.4, .4, 1); }
+.lenda-nova[hidden] { display: none; }
+.lenda-nova img { width: 90px; height: 90px; object-fit: contain; }
+.lenda-nova b { color: #ff8a1f; }
+
+@media (max-width: 420px) {
+  .cartoes { gap: 7px; grid-template-columns: repeat(3, minmax(0, 104px)); }
+  .cartao img { width: 38px; height: 38px; }
+  .cartao b { font-size: 15px; }
+  #hud .chip { font-size: 16px; padding: 5px 10px; }
+}
+@media (max-height: 430px) {
+  .cartao small { display: none; }
+  .cartao img { width: 32px; height: 32px; }
+  .largada { gap: 6px; }
+}
+.seguir { position: absolute; left: 50%; bottom: calc(18% + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 27; font-size: 24px;
+  border: 4px solid var(--tinta); animation: seguir-pulsa 1.2s ease-in-out infinite; }
+@keyframes seguir-pulsa { 50% { transform: translateX(-50%) scale(1.06); } }

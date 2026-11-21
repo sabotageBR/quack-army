@@ -1,0 +1,10 @@
+{
+  "titulo": "Quack Army",
+  "cor": "#ffd23f",
+  "contorno": "#1d1d2b",
+  "thumb": "arte/escolhida/thumb.jpg",
+  "fundo16x9": "arte/escolhida/capa-16x9.jpg",
+  "fundo9x16": "arte/escolhida/capa-9x16.jpg",
+  "titulo16x9": "esquerda",
+  "titulo9x16": "topo"
+}

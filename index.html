@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Quack Army</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="src/ui/kit.css">
+<link rel="stylesheet" href="src/ui/jogo.css">
+<!-- SDK do portal (a unica tag externa; o tools/empacotar.mjs troca a linha de baixo por alvo). -->
+<script src="/sdk/v1/plataforma-sdk.js"></script>
+<script type="importmap">{ "imports": { "three": "./vendor/three/three.module.js" } }</script>
+</head>
+<body>
+<div id="carregando" role="status"><div class="caixa"><img class="logo-pato" src="src/arte/patos/feliz.webp" alt=""><div class="logo" data-t="titulo">Quack Army</div><div class="barra"><i></i></div></div></div>
+<div id="palco"><canvas id="tela"></canvas></div>
+<div id="camada">
+  <div id="hud">
+    <div id="hudFase" class="chip">1</div>
+    <div class="hud-barra"><i id="hudProgresso"></i><img id="hudFim" src="src/arte/ui/trofeu.webp" alt=""></div>
+    <div class="chip moedas"><img src="src/arte/aderecos/moeda.webp" alt=""><span id="hudMoedas">0</span></div>
+    <button id="btPausa" class="botao-icone" type="button" data-t-aria="pausa">❚❚</button>
+  </div>
+  <div id="dica" class="dica" hidden></div>
+  <button id="btSeguir" class="botao forte seguir" type="button" data-t="seguir" hidden>Continue ▶</button>
+  <div id="novidade" class="novidade" hidden><img id="novidadeImg" src="src/arte/aderecos/estrela.webp" alt=""><div><b data-t="novo">New!</b><span id="novidadeTexto"></span></div></div>
+  <div id="largada" class="largada" hidden>
+    <div class="largar-texto" data-t="largar">Drag to run</div>
+    <div class="cartoes">
+      <button class="cartao" type="button" data-melhoria="patos"><img src="src/arte/ui/patos.webp" alt=""><b data-t="melhoriaPatos">Ducks</b><small data-t="descPatos"></small><span class="nv"></span><span class="preco"><img src="src/arte/aderecos/moeda.webp" alt=""><i></i></span></button>
+      <button class="cartao" type="button" data-melhoria="bolha"><img src="src/arte/ui/bolha.webp" alt=""><b data-t="melhoriaBolha">Bubble</b><small data-t="descBolha"></small><span class="nv"></span><span class="preco"><img src="src/arte/aderecos/moeda.webp" alt=""><i></i></span></button>
+      <button class="cartao" type="button" data-melhoria="renda"><img src="src/arte/ui/moedas.webp" alt=""><b data-t="melhoriaRenda">Income</b><small data-t="descRenda"></small><span class="nv"></span><span class="preco"><img src="src/arte/aderecos/moeda.webp" alt=""><i></i></span></button>
+    </div>
+    <div class="linha">
+      <button id="btLendas" class="botao pequeno" type="button"><img id="imgLider" src="src/arte/ui/cabeca.webp" alt=""><span data-t="lendas">Legends</span><small id="contaLendas">0/9</small></button>
+      <button id="btPresente" class="botao pequeno presente" type="button" hidden><img src="src/arte/aderecos/presente.webp" alt=""><span data-t="presente">Gift</span></button>
+    </div>
+  </div>
+</div>
+<div id="derrota" class="camada-ui" hidden>
+  <div class="painel" role="dialog" aria-modal="true" aria-labelledby="derrotaTitulo">
+    <img class="painel-img" src="src/arte/patos/frente-1.webp" alt="">
+    <h2 id="derrotaTitulo"></h2>
+    <div class="par">
+      <button id="btTentar" class="botao forte" type="button" data-t="tentar">Try again</button>
+      <button id="btReviver" class="botao" type="button" hidden>Revive</button>
+    </div>
+  </div>
+</div>
+<div id="menu" class="camada-ui" hidden>
+  <div class="painel" role="dialog" aria-modal="true" aria-labelledby="menuTitulo">
+    <h2 id="menuTitulo" data-t="pausa">Paused</h2>
+    <button id="btContinuar" class="botao forte" type="button" data-t="continuar">Continue</button>
+    <button id="btBonus" class="botao" type="button" hidden>Bonus</button>
+    <button id="btSom" class="botao" type="button" aria-pressed="true" data-t="som">Sound</button>
+  </div>
+</div>
+<div id="lendasTela" class="camada-ui" hidden>
+  <div class="painel largo" role="dialog" aria-modal="true" aria-labelledby="lendasTitulo">
+    <h2 id="lendasTitulo" data-t="lendasTitulo">Legends</h2>
+    <p class="miudo" data-t="lendasSub"></p>
+    <div id="gradeLendas" class="grade rolavel"></div>
+    <p class="miudo" id="proximaLenda"></p>
+    <button id="btFecharLendas" class="botao forte" type="button" data-t="fechar">Close</button>
+  </div>
+</div>
+<div id="presenteTela" class="camada-ui" hidden>
+  <div class="painel" role="dialog" aria-modal="true" aria-labelledby="presenteTitulo">
+    <img class="painel-img" src="src/arte/aderecos/presente.webp" alt="">
+    <h2 id="presenteTitulo" data-t="presenteTitulo">Daily gift</h2>
+    <p class="valor"><img src="src/arte/aderecos/moeda.webp" alt=""><span id="presenteValor">0</span></p>
+    <p class="miudo" id="presenteSub"></p>
+    <div class="par">
+      <button id="btPegar" class="botao forte" type="button" data-t="pegar">Take</button>
+      <button id="btPegarDobro" class="botao" type="button" hidden>Take x2</button>
+    </div>
+  </div>
+</div>
+<div id="lendaNova" class="lenda-nova" hidden><img id="lendaNovaImg" src="src/arte/lendas/capitao.webp" alt=""><b data-t="novaLenda">New legend!</b><span id="lendaNovaNome"></span></div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

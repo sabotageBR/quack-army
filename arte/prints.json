@@ -1,0 +1,8 @@
+[
+  { "nome": "uau-x5", "tamanho": "paisagem", "params": "novo&limpo&fase=1&auto", "js": "new Promise((ok) => { const f = () => (__jogo.E.c && __jogo.E.c.n >= 30 ? ok(1) : setTimeout(f, 15)); f(); })", "esperar": 260 },
+  { "nome": "exercito-de-sapos", "tamanho": "paisagem", "params": "novo&limpo&fase=3&auto", "js": "new Promise((ok) => { const f = () => (__jogo.E.c && __jogo.E.c.estado === 'choque' ? ok(1) : setTimeout(f, 15)); f(); })", "esperar": 420 },
+  { "nome": "castelo-derrubado", "tamanho": "paisagem", "params": "novo&limpo&fase=1&auto", "js": "new Promise((ok) => { const f = () => (__jogo.cena.fisica.final === 'volta' ? ok(1) : setTimeout(f, 15)); f(); })", "esperar": 170 },
+  { "nome": "piscina-retrato", "tamanho": "retrato", "params": "novo&fase=6&auto", "esperar": 7400 },
+  { "nome": "lago-retrato", "tamanho": "retrato", "params": "novo&fase=13&auto", "esperar": 5200 },
+  { "nome": "chuveiro", "tamanho": "paisagem", "params": "novo&limpo&fase=16&auto", "esperar": 6000 }
+]

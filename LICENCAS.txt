@@ -1,0 +1,13 @@
+Quack Army - licencas e origem do que vai no build
+===============================================================================
+
+Codigo: do estudio (Nettools). Sons: sintetizados na hora com WebAudio (src/som/).
+Arte do jogo: gerada com o Grok Imagine (xAI) a partir de texto, depois recortada, reduzida e ajustada
+(tools/sprite.mjs). Prompts, datas e sessoes em docs/autoria.md. Os brutos ficam em arte/bruto/ (fora do build).
+
+three.js (MIT) - vendor/three/ (quando o jogo usa 3D)
+Copyright 2010-2026 Three.js Authors
+
+Fredoka (SIL Open Font License 1.1) - src/ui/fontes/fredoka-latin-700-normal.woff2
+Copyright 2016 The Fredoka Project Authors (https://github.com/hafontia/Fredoka-One)
+Licenca completa: https://openfontlicense.org

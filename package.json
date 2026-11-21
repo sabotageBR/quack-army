@@ -1,0 +1,28 @@
+{
+  "name": "quack-army",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Quack Army: corredor 3D de multidao com patinhos de borracha (portoes que somam, multiplicam, subtraem e dividem o bando) para Poki, CrazyGames e californiagames.io.",
+  "type": "module",
+  "config": {
+    "porta": 5440
+  },
+  "kit": {
+    "trocas": {},
+    "ids": {
+      "y8": {
+        "appId": "6b00da2c616e2e0eb136fd1f",
+        "gameId": "294561"
+      }
+    }
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "servir": "node tools/servir.mjs",
+    "lan": "node tools/servir.mjs --lan",
+    "empacotar": "npm test && node tools/empacotar.mjs --alvo=todos",
+    "verificar": "node tools/verificar-build.mjs --alvo=todos",
+    "grok": "node tools/grok.mjs",
+    "sprite": "node tools/sprite.mjs"
+  }
+}
